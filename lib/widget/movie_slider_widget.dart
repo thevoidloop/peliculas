@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas/theme/app_theme.dart';
 
 class MovieSlider extends StatelessWidget {
   const MovieSlider({super.key});
@@ -12,11 +13,13 @@ class MovieSlider extends StatelessWidget {
       width: double.infinity,
       height: _size.height * 0.3,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Peliculas',
+              'Populares',
+              style: AppTheme.title1,
             ),
           ),
 
