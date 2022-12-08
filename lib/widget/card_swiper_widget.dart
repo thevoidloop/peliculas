@@ -12,32 +12,36 @@ class CardSwiperScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
-    return Container(
+    return SizedBox(
       width: double.infinity,
-      height: _size.height * 0.55,
+      height: size.height * 0.55,
       child: Swiper(
-        autoplay: true,
-        autoplayDelay: kDefaultAutoplayDelayMs + 5000,
+        // autoplay: true,
+        // autoplayDelay: kDefaultAutoplayDelayMs + 5000,
         itemCount: movies.length,
         layout: SwiperLayout.STACK,
-        itemWidth: _size.width * 0.6,
-        itemHeight: _size.height * 0.9,
+        itemWidth: size.width * 0.6,
+        itemHeight: size.height * 0.9,
         itemBuilder: (_, index) {
-          final movie = movies[index];
+          final Movie movie = movies[index];
+          movie.heroId = 'swiper-${movie.id}';
 
           return Padding(
             padding: const EdgeInsets.all(25.0),
             child: GestureDetector(
-              onTap: () => Navigator.pushNamed(context, 'details',
-                  arguments: 'movie-instance'),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'),
-                  image: NetworkImage(movie.fullPosterImg),
-                  fit: BoxFit.cover,
+              onTap: () =>
+                  Navigator.pushNamed(context, 'details', arguments: movie),
+              child: Hero(
+                tag: movie.heroId!,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: FadeInImage(
+                    placeholder: const AssetImage('assets/no-image.jpg'),
+                    image: NetworkImage(movie.fullPosterImg),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
